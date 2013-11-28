@@ -21,6 +21,9 @@ $ npm install co-body
 // application/json
 var body = yield parse.json(req);
 
+// explicit limit
+var body = yield parse.json(req, { limit: '10kb' });
+
 // application/x-www-form-urlencoded
 var body = yield parse.form(req);
 
