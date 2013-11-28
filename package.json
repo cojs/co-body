@@ -1,13 +1,13 @@
 {
-  "name": "<name>",
+  "name": "co-body",
   "version": "0.0.1",
-  "repository": "visionmedia/<name>",
-  "description": "",
-  "keywords": [],
+  "repository": "cojs/body",
+  "description": "request body parsing for co",
+  "keywords": ["request", "parse", "parser", "json", "co", "generators", "urlencoded"],
   "dependencies": {},
   "devDependencies": {
     "mocha": "*",
-    "should": "*"  
+    "should": "*"
   },
   "license": "MIT"
 }
