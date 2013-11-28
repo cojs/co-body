@@ -9,6 +9,12 @@
 $ npm install co-body
 ```
 
+## Options
+
+  Available via [raw-body](https://github.com/stream-utils/raw-body/blob/master/index.js):
+
+  - `limit` number or string representing the request size limit (1mb for json and 56kb for form-urlencoded)
+
 ## Example
 
 ```js
