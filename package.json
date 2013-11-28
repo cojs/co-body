@@ -13,8 +13,8 @@
     "urlencoded"
   ],
   "dependencies": {
-    "bytes": "~0.2.1",
-    "qs": "~0.6.5"
+    "qs": "~0.6.5",
+    "raw-body": "~1.1.1"
   },
   "devDependencies": {
     "mocha": "*",

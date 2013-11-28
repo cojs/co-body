@@ -1,8 +1,9 @@
 
 test:
 	@./node_modules/.bin/mocha \
+		--harmony-generators \
 		--require should \
-		--reporter dot \
+		--reporter spec \
 		--bail
 
 .PHONY: test
