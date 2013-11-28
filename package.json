@@ -1,0 +1,13 @@
+{
+  "name": "<name>",
+  "version": "0.0.1",
+  "repository": "visionmedia/<name>",
+  "description": "",
+  "keywords": [],
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*"  
+  },
+  "license": "MIT"
+}
