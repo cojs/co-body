@@ -39,4 +39,18 @@ describe('parse(req, opts)', function(){
       .end(function(){});
     })
   })
+
+  describe('with missing content-type', function(){
+    it('should fail with 415', function(done){
+      var app = koa();
+
+      app.use(function *(){
+        yield parse(this);
+      });
+
+      request(app.listen())
+      .post('/')
+      .expect(415, 'Unsupported Media Type', done);
+    })
+  })
 })
