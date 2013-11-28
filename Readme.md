@@ -1,7 +1,7 @@
 
 # co-body
 
-  Parse request bodies with generators.
+  Parse request bodies with generators inspired by [Raynos/body](https://github.com/Raynos/body).
 
 ## Installation
 
