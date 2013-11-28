@@ -19,7 +19,8 @@
   "devDependencies": {
     "mocha": "*",
     "should": "*",
-    "co": "~2.3.0"
+    "koa": "koajs/koa",
+    "supertest": "~0.8.2"
   },
   "license": "MIT"
 }
