@@ -3,11 +3,23 @@
   "version": "0.0.1",
   "repository": "cojs/body",
   "description": "request body parsing for co",
-  "keywords": ["request", "parse", "parser", "json", "co", "generators", "urlencoded"],
-  "dependencies": {},
+  "keywords": [
+    "request",
+    "parse",
+    "parser",
+    "json",
+    "co",
+    "generators",
+    "urlencoded"
+  ],
+  "dependencies": {
+    "bytes": "~0.2.1",
+    "qs": "~0.6.5"
+  },
   "devDependencies": {
     "mocha": "*",
-    "should": "*"
+    "should": "*",
+    "co": "~2.3.0"
   },
   "license": "MIT"
 }
