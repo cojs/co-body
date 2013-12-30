@@ -1,7 +1,7 @@
 {
   "name": "co-body",
   "version": "0.0.2",
-  "repository": "cojs/body",
+  "repository": "visionmedia/co-body",
   "description": "request body parsing for co",
   "keywords": [
     "request",
