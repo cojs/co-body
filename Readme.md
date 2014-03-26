@@ -27,6 +27,9 @@ var body = yield parse.json(req, { limit: '10kb' });
 // application/x-www-form-urlencoded
 var body = yield parse.form(req);
 
+// application/x-www-form-urlencoded
+var body = yield parse.text(req);
+
 // either
 var body = yield parse(req);
 ```

@@ -39,6 +39,23 @@ describe('parse(req, opts)', function(){
     })
   })
 
+  describe('with valid text', function(){
+    it('should parse', function(done){
+      var app = koa();
+
+      app.use(function *(){
+        this.body = yield parse(this);
+      });
+
+      request(app.listen())
+      .post('/')
+      .set('content-type', 'text/plain')
+      .send('plain text')
+      .expect(200)
+      .expect('plain text', done);
+    })
+  })
+
   describe('with valid json-patch content-type', function(){
     it('should parse', function(done){
       var app = koa();

@@ -1,7 +1,7 @@
 
 test:
 	@NODE_ENV=test ./node_modules/.bin/mocha \
-		--harmony-generators \
+		--harmony \
 		--require should \
 		--reporter spec \
 		--bail
