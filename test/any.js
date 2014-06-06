@@ -2,7 +2,6 @@
 var request = require('supertest');
 var parse = require('..');
 var koa = require('koa');
-var co = require('co');
 
 describe('parse(req, opts)', function(){
   describe('with valid form body', function(){
