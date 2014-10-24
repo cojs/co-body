@@ -13,7 +13,7 @@
     "urlencoded"
   ],
   "dependencies": {
-    "qs": "~1.0.0",
+    "qs": "^2.3.1",
     "raw-body": "~1.1.1"
   },
   "devDependencies": {
