@@ -39,6 +39,25 @@ describe('parse(req, opts)', function(){
     })
   })
 
+  describe('with valid json-patch content-type', function(){
+    it('should parse', function(done){
+      var app = koa();
+
+      app.use(function *(){
+        var body = yield parse(this);
+        body.should.eql([{op: 'replace', path: '/foo', value:'bar'}]);
+        done();
+      });
+
+      request(app.listen())
+      .post('/')
+      .type('application/json-patch+json')
+      .send(JSON.stringify([{op: 'replace', path: '/foo', value:'bar'}]))
+      .end(function(){});
+    })
+  })
+
+
   describe('with missing content-type', function(){
     it('should fail with 415', function(done){
       var app = koa();
