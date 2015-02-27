@@ -13,14 +13,14 @@
     "urlencoded"
   ],
   "dependencies": {
-    "qs": "~1.0.0",
-    "raw-body": "~1.1.1"
+    "qs": "~2.3.3",
+    "raw-body": "~1.3.3"
   },
   "devDependencies": {
     "mocha": "*",
     "should": "*",
     "koa": "*",
-    "supertest": "~0.8.2"
+    "supertest": "*"
   },
   "license": "MIT",
   "scripts": {
