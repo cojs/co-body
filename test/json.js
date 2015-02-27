@@ -20,4 +20,21 @@ describe('parse.json(req, opts)', function(){
       .end(function(){});
     })
   })
+
+  describe('with content-length zero', function(){
+    it('should return null', function(done) {
+      var app = koa();
+
+      app.use(function *() {
+        var body = yield parse.json(this);
+        (null === body).should.be.true;
+        done();
+      });
+
+      request(app.listen())
+      .post('/')
+      .set('content-length', 0)
+      .end(function(){});
+    })
+  })
 })
