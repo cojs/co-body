@@ -17,13 +17,16 @@
     "raw-body": "~1.3.3"
   },
   "devDependencies": {
+    "istanbul-harmony": "^0.3.1",
+    "koa": "*",
     "mocha": "*",
     "should": "*",
-    "koa": "*",
     "supertest": "*"
   },
   "license": "MIT",
   "scripts": {
-    "test": "make test"
-  }
+    "test": "make test",
+    "test-cov": "make test-cov"
+  },
+  "files": ["index.js", "lib/"]
 }
