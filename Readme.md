@@ -31,6 +31,7 @@ $ npm install co-body
   Available via [raw-body](https://github.com/stream-utils/raw-body/blob/master/index.js):
 
   - `limit` number or string representing the request size limit (1mb for json and 56kb for form-urlencoded)
+  - `strict` when set to `true`, JSON parser will only accept arrays and objects; when `false` will accept anything `JSON.parse` accepts. Defaults to `true`. (also `strict` mode will always return object).
 
 ## Example
 
