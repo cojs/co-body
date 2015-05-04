@@ -106,7 +106,7 @@ describe('parse.json(req, opts)', function(){
           } catch (err) {
             err.status.should.equal(400);
             err.body.should.equal('"foo"');
-            err.message.should.equal('invalid JSON');
+            err.message.should.equal('invalid JSON, only supports object and array');
             done();
           }
         });
