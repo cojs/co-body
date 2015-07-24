@@ -30,6 +30,7 @@ $ npm install co-body
 
   - `limit` number or string representing the request size limit (1mb for json and 56kb for form-urlencoded)
   - `strict` when set to `true`, JSON parser will only accept arrays and objects; when `false` will accept anything `JSON.parse` accepts. Defaults to `true`. (also `strict` mode will always return object).
+  - `queryString` an object of options when parsing query strings and form data. See [qs](https://github.com/hapijs/qs) for more information.
 
 more options available via [raw-body](https://github.com/stream-utils/raw-body#getrawbodystream-options-callback):
 
