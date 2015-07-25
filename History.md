@@ -1,4 +1,10 @@
 
+3.0.0 / 2015-07-25
+==================
+
+ * Updated dependencies. Added qs options support via queryString option key. (@yanickrochon)
+   * upgrade qs@4.0.0, raw-body@2.1.2
+
 2.0.0 / 2015-05-04
 ==================
 
