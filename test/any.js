@@ -100,6 +100,40 @@ describe('parse(req, opts)', function(){
     });
   });
 
+  describe('with custom types', function(){
+    it('should parse html as text', function(done){
+      var app = koa();
+
+      app.use(function *(){
+        var body = yield parse(this, { textTypes: 'text/html' });
+        this.body = body
+      });
+
+      request(app.listen())
+      .post('/')
+      .set('Content-Type', 'text/html')
+      .send('<h1>html text</ht>')
+      .expect('<h1>html text</ht>', done);
+    })
+
+    it('should parse graphql as text', function(done){
+      var app = koa();
+
+      app.use(function *(){
+        var body = yield parse(this, { textTypes: ['application/graphql', 'text/html'] });
+        this.body = body
+      });
+
+      var graphql = '{\n  user(id: 4) {\n    name\n  }\n}'
+
+      request(app.listen())
+      .post('/')
+      .set('Content-Type', 'application/graphql')
+      .send(graphql)
+      .expect(graphql, done);
+    })
+  })
+
   describe('with missing content-type', function(){
     it('should fail with 415', function(done){
       var app = koa();
