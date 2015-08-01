@@ -14,7 +14,8 @@
   ],
   "dependencies": {
     "qs": "~4.0.0",
-    "raw-body": "~2.1.2"
+    "raw-body": "~2.1.2",
+    "type-is": "~1.6.6"
   },
   "devDependencies": {
     "istanbul-harmony": "~0.3.16",
@@ -28,5 +29,8 @@
     "test": "make test",
     "test-cov": "make test-cov"
   },
-  "files": ["index.js", "lib/"]
+  "files": [
+    "index.js",
+    "lib/"
+  ]
 }

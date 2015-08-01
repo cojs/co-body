@@ -80,8 +80,25 @@ describe('parse(req, opts)', function(){
       .expect(200)
       .expect({posts: "1"}, done);
     });
-  });
 
+    it('should parse application/csp-report', function(done){
+      request(app.listen())
+      .post('/')
+      .type('application/csp-report')
+      .send(JSON.stringify({posts: "1"}))
+      .expect(200)
+      .expect({posts: "1"}, done);
+    });
+
+    it('should parse application/ld+json', function(done){
+      request(app.listen())
+      .post('/')
+      .type('application/ld+json')
+      .send(JSON.stringify({posts: "1"}))
+      .expect(200)
+      .expect({posts: "1"}, done);
+    });
+  });
 
   describe('with missing content-type', function(){
     it('should fail with 415', function(done){
