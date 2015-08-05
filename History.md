@@ -1,4 +1,11 @@
 
+3.1.0 / 2015-08-06
+==================
+
+ * travis: add v2, v3, remove 0.11
+ * add custom types options
+ * use type-is
+
 3.0.0 / 2015-07-25
 ==================
 
