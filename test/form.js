@@ -58,4 +58,29 @@ describe('parse.form(req, opts)', function(){
       .end(function(err){ done(err); });
     })
   })
+
+  describe('with custom qs module', function(){
+    it('should parse with safe-qs', function(done){
+      var app = koa();
+
+      app.use(function *(){
+        try {
+          var body = yield parse.form(this, {
+            qs: require('safe-qs'),
+          });
+          throw new Error('should not run this');
+        } catch (err) {
+          this.status = err.status;
+          this.body = err.message;
+        }
+      });
+
+      request(app.listen())
+      .post('/')
+      .type('form')
+      .send({ a: { '21': 'a' } })
+      .expect('Index of array [21] is overstep limit: 20')
+      .expect(400, done);
+    })
+  })
 })
