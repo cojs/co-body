@@ -1,4 +1,10 @@
 
+4.2.0 / 2016-05-05
+==================
+
+  * test: test on node 4, 5, 6
+  * feat: Added support for request body inflation
+
 4.1.0 / 2016-05-05
 ==================
 
