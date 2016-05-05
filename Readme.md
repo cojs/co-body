@@ -34,6 +34,7 @@ $ npm install co-body
   - `jsonTypes` is used to determine what media type **co-body** will parse as **json**, this option is passed directly to the [type-is](https://github.com/jshttp/type-is) library.
   - `formTypes` is used to determine what media type **co-body** will parse as **form**, this option is passed directly to the [type-is](https://github.com/jshttp/type-is) library.
   - `textTypes` is used to determine what media type **co-body** will parse as **text**, this option is passed directly to the [type-is](https://github.com/jshttp/type-is) library.
+  - `verify` The verify option, if supplied, is called as verify(req, str), where `str` is a string of the raw request body. The parsing can be aborted by throwing an error.
 
 more options available via [raw-body](https://github.com/stream-utils/raw-body#getrawbodystream-options-callback):
 
@@ -57,6 +58,13 @@ var body = yield parse(req);
 
 // custom type
 var body = yield parse(req, { textTypes: ['text', 'html'] });
+
+// verify
+var body = yield parse(req, {
+  verify: function(req, str) {
+    req.rawBody = str;
+  }
+});
 ```
 
 ## Koa
@@ -76,6 +84,13 @@ var body = yield parse.text(this);
 
 // either
 var body = yield parse(this);
+
+// verify
+var body = yield parse(this, {
+  verify: function(req, str) {
+    req.rawBody = str;
+  }
+});
 ```
 
 # License
