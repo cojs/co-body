@@ -83,4 +83,54 @@ describe('parse.form(req, opts)', function(){
       .expect(400, done);
     })
   })
+
+  describe('with verify', function(){
+    describe('and verify pass', function(){
+      it('should parse', function(done){
+        var app = koa();
+
+        app.use(function *(){
+          var body = yield parse.form(this, {
+            verify: function(req, str) {
+              str.should.equal('foo=bar');
+            }
+          });
+          body.should.eql({ foo: 'bar' });
+          done();
+        });
+
+        request(app.listen())
+        .post('/')
+        .type('form')
+        .send({ foo: 'bar' })
+        .end(function(){});
+      })
+    })
+
+    describe('and verify fail', function(){
+      it('should not parse', function(done){
+        var app = koa();
+
+        app.use(function *(){
+          try {
+            yield parse.form(this, {
+              verify: function(req, str) {
+                throw new Error('verify fail');
+              }
+            });
+          } catch(err) {
+            err.status.should.equal(403);
+            err.body.should.equal('foo=bar');
+            done();
+          }
+        });
+
+        request(app.listen())
+        .post('/')
+        .type('form')
+        .send({ foo: 'bar' })
+        .end(function(){});
+      })
+    })
+  })
 })
