@@ -13,7 +13,7 @@
     "urlencoded"
   ],
   "dependencies": {
-    "qs": "~4.0.0",
+    "qs": "~6.0.2",
     "raw-body": "~2.1.2",
     "inflation": "~2.0.0",
     "type-is": "~1.6.6"
