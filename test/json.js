@@ -1,4 +1,5 @@
 
+var clone = require('clone');
 var request = require('supertest');
 var parse = require('..');
 var koa = require('koa');
@@ -11,6 +12,25 @@ describe('parse.json(req, opts)', function(){
       app.use(function *(){
         var body = yield parse.json(this);
         body.should.eql({ foo: 'bar' });
+        done();
+      });
+
+      request(app.listen())
+      .post('/')
+      .send({ foo: 'bar' })
+      .end(function(){});
+    })
+
+    it('should not modify input opts', function(done){
+      var app = koa();
+
+      app.on('error', done);
+
+      app.use(function *() {
+        var opts = {};
+        var optsCopy = clone(opts);
+        yield parse.json(this, opts);
+        opts.should.eql(optsCopy);
         done();
       });
 
