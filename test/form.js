@@ -1,4 +1,5 @@
 
+var clone = require('clone');
 var request = require('supertest');
 var parse = require('..');
 var koa = require('koa');
@@ -19,6 +20,26 @@ describe('parse.form(req, opts)', function(){
       .type('form')
       .send({ foo: { bar: 'baz' }})
       .end(function(err){ done(err); });
+    })
+
+    it('should not modify input opts', function(done){
+      var app = koa();
+
+      app.on('error', done);
+
+      app.use(function *() {
+        var opts = {};
+        var optsCopy = clone(opts);
+        yield parse.form(this, opts);
+        opts.should.eql(optsCopy);
+        done();
+      });
+
+      request(app.listen())
+      .post('/')
+      .type('form')
+      .send({ foo: { bar: 'baz' } })
+      .end(function(){});
     })
   })
 
