@@ -189,7 +189,6 @@ describe('parse(req, opts)', function(){
       var app = koa();
       var options = {};
       app.use(function *(){
-        console.log(options);
         this.body = yield parse(this, options);
       });
 
