@@ -13,18 +13,18 @@
     "urlencoded"
   ],
   "dependencies": {
-    "qs": "~4.0.0",
-    "raw-body": "~2.1.2",
-    "inflation": "~2.0.0",
-    "type-is": "~1.6.6"
+    "inflation": "^2.0.0",
+    "qs": "^6.3.1",
+    "raw-body": "^2.2.0",
+    "type-is": "^1.6.14"
   },
   "devDependencies": {
-    "istanbul-harmony": "~0.3.16",
-    "koa": "~0.21.0",
-    "mocha": "*",
+    "istanbul": "^0.4.5",
+    "koa": "^1.2.5",
+    "mocha": "^3.2.0",
     "safe-qs": "^6.0.1",
-    "should": "*",
-    "supertest": "~1.0.1"
+    "should": "^11.2.0",
+    "supertest": "^1.0.1"
   },
   "license": "MIT",
   "scripts": {
