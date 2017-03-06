@@ -14,7 +14,7 @@
   ],
   "dependencies": {
     "inflation": "^2.0.0",
-    "qs": "^6.3.1",
+    "qs": "^6.4.0",
     "raw-body": "^2.2.0",
     "type-is": "^1.6.14"
   },
