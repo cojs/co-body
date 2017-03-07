@@ -184,6 +184,34 @@ describe('parse(req, opts)', function(){
       req.write(zlib.deflateSync(json));
       req.end(function(){});
     })
+
+    describe("after indentity and with shared options", function () {
+      var app = koa();
+      var options = {};
+      app.use(function *(){
+        this.body = yield parse(this, options);
+      });
+
+      before(function(done) {
+        request(app.listen())
+            .post('/')
+            .set('Content-Encoding', 'identity')
+            .send({ foo: 'bar', and: 'something extra' })
+            .expect(200, done);
+      });
+      it('should inflate deflate', function(done){
+
+        var json = JSON.stringify({ foo: 'bar' });
+
+        var req = request(app.listen())
+            .post('/')
+            .type('json')
+            .set('Content-Encoding', 'deflate');
+        req.write(zlib.deflateSync(json));
+        req.expect(200, done);
+      })
+    });
+
     it('should pass-through identity', function(done){
       var app = koa();
 
