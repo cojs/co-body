@@ -119,4 +119,52 @@ describe('parse.json(req, opts)', function(){
       })
     })
   })
+
+  describe('with verify', function(){
+    describe('and verify pass', function(){
+      it('should parse', function(done){
+        var app = koa();
+
+        app.use(function *(){
+          var body = yield parse.json(this, {
+            verify: function(req, str) {
+              str.should.equal('{"foo":"bar"}');
+            }
+          });
+          body.should.eql({ foo: 'bar' });
+          done();
+        });
+
+        request(app.listen())
+        .post('/')
+        .send({ foo: 'bar' })
+        .end(function(){});
+      })
+    })
+
+    describe('and verify fail', function(){
+      it('should not parse', function(done){
+        var app = koa();
+
+        app.use(function *(){
+          try {
+            yield parse.json(this, {
+              verify: function(req, str) {
+                throw new Error('verify fail');
+              }
+            });
+          } catch(err) {
+            err.status.should.equal(403);
+            err.body.should.equal('{"foo":"bar"}');
+            done();
+          }
+        });
+
+        request(app.listen())
+        .post('/')
+        .send({ foo: 'bar' })
+        .end(function(){});
+      })
+    })
+  })
 })

@@ -201,4 +201,52 @@ describe('parse(req, opts)', function(){
     })
   })
 
+  describe('with verify', function(){
+    describe('and verify pass', function(){
+      it('should parse', function(done){
+        var app = koa();
+
+        app.use(function *(){
+          this.body = yield parse(this, {
+            verify: function(req, str) {
+              str.should.equal('plain text');
+            }
+          });
+        });
+
+        request(app.listen())
+        .post('/')
+        .set('content-type', 'text/plain')
+        .send('plain text')
+        .expect(200)
+        .expect('plain text', done);
+      })
+    })
+
+    describe('and verify fail', function(){
+      it('should not parse', function(done){
+        var app = koa();
+
+        app.use(function *(){
+          try {
+            yield parse(this, {
+              verify: function(req, str) {
+                throw new Error('verify fail');
+              }
+            });
+          } catch(err) {
+            err.status.should.equal(403);
+            err.body.should.equal('plain text');
+            done();
+          }
+        });
+
+        request(app.listen())
+        .post('/')
+        .set('content-type', 'text/plain')
+        .send('plain text')
+        .end(function(){});
+      });
+    })
+  })
 })
