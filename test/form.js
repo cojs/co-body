@@ -83,4 +83,36 @@ describe('parse.form(req, opts)', function(){
       .expect(400, done);
     })
   })
+
+  describe('allowDots', function(){
+    it('should allowDots default to true', function(done){
+      var app = koa();
+
+      app.use(function *(){
+        this.body = yield parse.form(this);
+      });
+
+      request(app.listen())
+      .post('/')
+      .type('form')
+      .send('a.b=1&a.c=2')
+      .expect({ a: { b: '1', c: '2' } })
+      .expect(200, done);
+    });
+
+    it('allowDots can set to false', function(done){
+      var app = koa();
+
+      app.use(function *(){
+        this.body = yield parse.form(this, { queryString: { allowDots: false } });
+      });
+
+      request(app.listen())
+      .post('/')
+      .type('form')
+      .send('a.b=1&a.c=2')
+      .expect({ 'a.b': '1', 'a.c': '2' })
+      .expect(200, done);
+    });
+  })
 })
