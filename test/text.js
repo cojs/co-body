@@ -19,4 +19,21 @@ describe('parse.text(req, opts)', function(){
       .expect('Hello World!', done);
     });
   });
+
+  describe('with invalid content encoding', function() {
+    it('should throw 415', function(done) {
+      var app = koa();
+
+      app.use(function *(){
+        var body = yield parse.text(this);
+        this.status = 200;
+      });
+
+      request(app.listen())
+      .post('/')
+      .set('content-encoding', 'invalid')
+      .send('Hello World!')
+      .expect(415, done);
+    })
+  })
 });
