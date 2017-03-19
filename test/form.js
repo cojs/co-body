@@ -22,6 +22,25 @@ describe('parse.form(req, opts)', function(){
     })
   })
 
+  describe('with invalid content encoding', function() {
+    it('should throw 415', function(done) {
+      var app = koa();
+
+      app.use(function *(){
+        var body = yield parse.form(this);
+        body.foo.bar.should.equal('baz');
+        this.status = 200;
+      });
+
+      request(app.listen())
+      .post('/')
+      .type('form')
+      .set('content-encoding', 'invalid')
+      .send({ foo: { bar: 'baz' }})
+      .expect(415, done);
+    })
+  })
+
   describe('with qs settings', function(){
     var data = { level1: { level2: { level3: { level4: { level5: { level6: { level7: 'Hello' } } } } } } };
 

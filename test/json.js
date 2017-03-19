@@ -21,6 +21,25 @@ describe('parse.json(req, opts)', function(){
     })
   })
 
+  describe('with invalid content encoding', function() {
+    it('should throw 415', function(done) {
+      var app = koa();
+
+      app.use(function *(){
+        var body = yield parse.json(this);
+        body.foo.bar.should.equal('baz');
+        this.status = 200;
+      });
+
+      request(app.listen())
+      .post('/')
+      .type('json')
+      .set('content-encoding', 'invalid')
+      .send({ foo: { bar: 'baz' }})
+      .expect(415, done);
+    })
+  })
+
   describe('with content-length zero', function(){
     describe('and strict === false', function(){
       it('should return null', function(done) {
