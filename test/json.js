@@ -138,4 +138,21 @@ describe('parse.json(req, opts)', function(){
       })
     })
   })
+
+  describe('returnRawBody', function(){
+    it('should return raw body when opts.returnRawBody = true', function(done){
+      var app = koa();
+
+      app.use(function *(){
+        this.body = yield parse.json(this, { returnRawBody: true });
+      });
+
+      request(app.listen())
+      .post('/')
+      .type('json')
+      .send({ foo: 'bar' })
+      .expect({ parsed: { foo: 'bar' }, raw: '{"foo":"bar"}' })
+      .expect(200, done);
+    });
+  })
 })

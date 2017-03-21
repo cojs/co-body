@@ -134,4 +134,21 @@ describe('parse.form(req, opts)', function(){
       .expect(200, done);
     });
   })
+
+  describe('returnRawBody', function(){
+    it('should return raw body when opts.returnRawBody = true', function(done){
+      var app = koa();
+
+      app.use(function *(){
+        this.body = yield parse.form(this, { returnRawBody: true });
+      });
+
+      request(app.listen())
+      .post('/')
+      .type('form')
+      .send('a[b]=1&a[c]=2')
+      .expect({ parsed: { a: { b: '1', c: '2' } }, raw: 'a[b]=1&a[c]=2' })
+      .expect(200, done);
+    });
+  })
 })
