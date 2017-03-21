@@ -36,4 +36,20 @@ describe('parse.text(req, opts)', function(){
       .expect(415, done);
     })
   })
+
+  describe('returnRawBody', function(){
+    it('should return raw body when opts.returnRawBody = true', function(done){
+      var app = koa();
+
+      app.use(function *(){
+        this.body = yield parse.text(this, { returnRawBody: true });
+      });
+
+      request(app.listen())
+      .post('/')
+      .send('Hello World!')
+      .expect({ parsed: 'Hello World!', raw: 'Hello World!' })
+      .expect(200, done);
+    });
+  })
 });
