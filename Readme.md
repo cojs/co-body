@@ -1,3 +1,6 @@
+# About this fork
+This fork fixes https://github.com/cojs/co-body/pull/48.
+When the PR is accepted this repo can be deleted.
 
 # co-body
 
