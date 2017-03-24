@@ -1,4 +1,10 @@
 
+5.1.1 / 2017-03-24
+==================
+
+  * fix: getOptions change to clone
+  * fix: ensure options are independent in each request
+
 5.1.0 / 2017-03-21
 ==================
 
