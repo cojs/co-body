@@ -228,4 +228,33 @@ describe('parse(req, opts)', function(){
     })
   })
 
+  describe('multiple parser coexist', function(){
+    it('should parse', function(done){
+      var app = koa();
+
+      app.use(function *(next){
+        this.request.textParser = parse.text(this);
+        yield next;
+      });
+      app.use(function *(next){
+        this.request.formParser = parse.form(this);
+        yield next;
+      });
+      app.use(function *(){
+        this.body = {
+          json: yield parse(this),
+          text: yield this.request.textParser,
+          form: yield this.request.formParser
+        };
+      });
+
+      request(app.listen())
+      .post('/')
+      .set('content-type', 'application/json')
+      .send('{"hello":"world"}')
+      .expect(200)
+      .expect({"json":{"hello":"world"},"text":"{\"hello\":\"world\"}","form":{"{\"hello\":\"world\"}":""}}, done);
+    })
+  })
+
 })
