@@ -229,32 +229,46 @@ describe('parse(req, opts)', function(){
   })
 
   describe('multiple parser coexist', function(){
-    it('should parse', function(done){
-      var app = koa();
+    var app = koa();
 
-      app.use(function *(next){
-        this.request.textParser = parse.text(this);
-        yield next;
-      });
-      app.use(function *(next){
-        this.request.formParser = parse.form(this);
-        yield next;
-      });
-      app.use(function *(){
-        this.body = {
-          json: yield parse(this),
-          text: yield this.request.textParser,
-          form: yield this.request.formParser
-        };
-      });
+    app.use(function *(next){
+      this.request.bodyParser = parse(this);
+      yield next;
+    });
+    app.use(function *(next){
+      this.body = yield parse(this);
+      yield next;
+    });
+    app.use(function *(next){
+      this.body = [this.body, yield this.request.bodyParser];
+      yield next;
+    });
 
+    it('should parse json', function(done){
       request(app.listen())
       .post('/')
       .set('content-type', 'application/json')
-      .send('{"hello":"world"}')
+      .send({foo:'bar'})
       .expect(200)
-      .expect({"json":{"hello":"world"},"text":"{\"hello\":\"world\"}","form":{"{\"hello\":\"world\"}":""}}, done);
+      .expect([{foo:'bar'}, {foo:'bar'}], done);
+    })
+
+    it('should parse text', function(done){
+      request(app.listen())
+      .post('/')
+      .set('content-type', 'text/plain')
+      .send('plain text')
+      .expect(200)
+      .expect(['plain text', 'plain text'], done);
+    })
+
+    it('should parse form', function(done){
+      request(app.listen())
+      .post('/')
+      .type('form')
+      .send({foo: 'bar'})
+      .expect(200)
+      .expect([{foo: 'bar'}, {foo: 'bar'}], done);
     })
   })
-
 })
