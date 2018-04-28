@@ -57,6 +57,24 @@ describe('parse(req, opts)', function(){
     })
   })
 
+  describe('with valid xml', function(){
+    it('should parse', function(done){
+      var app = koa();
+
+      app.use(function *(){
+        var body = yield parse(this);
+        body.should.eql({ foo: 'bar' });
+        done();
+      });
+
+      request(app.listen())
+      .post('/')
+      .type('application/xml')
+      .send('<foo>bar</foo>')
+      .end(function(){});
+    })
+  })
+
   describe('with know json content-type', function(){
     var app = koa();
 
@@ -96,6 +114,50 @@ describe('parse(req, opts)', function(){
       .post('/')
       .type('application/ld+json')
       .send(JSON.stringify({posts: '1'}))
+      .expect(200)
+      .expect({posts: '1'}, done);
+    });
+  });
+
+  describe('with know xml content-type', function(){
+    var app = koa();
+
+    app.use(function *(){
+      this.body = yield parse(this);
+    });
+
+    it('should parse application/xml', function(done){
+      request(app.listen())
+      .post('/')
+      .type('application/xml')
+      .send('<ab><op>replace</op><path>/foo</path><value>bar</value></ab>')
+      .expect(200)
+      .expect({ab: {op: 'replace', path: '/foo', value:'bar'}}, done);
+    });
+
+    it('should parse text/xml', function(done){
+      request(app.listen())
+      .post('/')
+      .type('text/xml')
+      .send('<posts>1</posts>')
+      .expect(200)
+      .expect({posts: '1'}, done);
+    });
+
+    it('should parse xml', function(done){
+      request(app.listen())
+      .post('/')
+      .type('xml')
+      .send('<posts>1</posts>')
+      .expect(200)
+      .expect({posts: '1'}, done);
+    });
+
+    it('should parse application/ld+xml', function(done){
+      request(app.listen())
+      .post('/')
+      .type('application/ld+xml')
+      .send('<posts>1</posts>')
       .expect(200)
       .expect({posts: '1'}, done);
     });
@@ -182,6 +244,40 @@ describe('parse(req, opts)', function(){
         .type('json')
         .set('Content-Encoding', 'deflate');
       req.write(zlib.deflateSync(json));
+      req.end(function(){});
+    })
+    it('should xml inflate gzip', function(done){
+      var app = koa();
+      var xml = '<foo>bar</foo>';
+
+      app.use(function *(){
+        var body = yield parse(this);
+        body.should.eql({ foo: 'bar' });
+        done();
+      });
+
+      var req = request(app.listen())
+        .post('/')
+        .type('xml')
+        .set('Content-Encoding', 'gzip');
+      req.write(zlib.gzipSync(xml));
+      req.end(function(){});
+    })
+    it('should xml inflate deflate', function(done){
+      var app = koa();
+      var xml = '<foo>bar</foo>';
+
+      app.use(function *(){
+        var body = yield parse(this);
+        body.should.eql({ foo: 'bar' });
+        done();
+      });
+
+      var req = request(app.listen())
+        .post('/')
+        .type('xml')
+        .set('Content-Encoding', 'deflate');
+      req.write(zlib.deflateSync(xml));
       req.end(function(){});
     })
 
