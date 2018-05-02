@@ -2,6 +2,7 @@
 var request = require('supertest');
 var parse = require('..');
 var koa = require('koa');
+var Buffer = require('buffer').Buffer;
 
 describe('parse.text(req, opts)', function(){
   describe('with valid str', function(){
@@ -50,6 +51,23 @@ describe('parse.text(req, opts)', function(){
       .send('Hello World!')
       .expect({ parsed: 'Hello World!', raw: 'Hello World!' })
       .expect(200, done);
+    });
+  })
+
+  describe('use no encoding', function(){
+    it('should return raw body when opts.returnRawBody = true', function(done){
+      var app = koa();
+
+      app.use(function *(){
+        const requestBody = yield parse.text(this, {encoding: false});
+        this.body = { isBuffer: Buffer.isBuffer(requestBody) };
+      });
+
+      request(app.listen())
+        .post('/')
+        .send('Hello World!')
+        .expect({ isBuffer: true })
+        .expect(200, done);
     });
   })
 });
