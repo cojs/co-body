@@ -1,4 +1,10 @@
 
+5.2.0 / 2018-05-02
+==================
+
+**features**
+  * [[`f65a2d8`](http://github.com/cojs/co-body/commit/f65a2d8f7ebf4426138035af6d7e7f02272441f2)] - feat: impl text parser support encoding: false (#64) (killa <<killa123@126.com>>)
+
 5.1.1 / 2017-03-24
 ==================
 
