@@ -50,6 +50,9 @@ var body = yield parse.json(req, { limit: '10kb' });
 // application/x-www-form-urlencoded
 var body = yield parse.form(req);
 
+// application/xml
+var body = yield parse.xml(req);
+
 // text/plain
 var body = yield parse.text(req);
 
@@ -71,6 +74,9 @@ var body = yield parse.json(this);
 
 // application/x-www-form-urlencoded
 var body = yield parse.form(this);
+
+// application/xml
+var body = yield parse.xml(this);
 
 // text/plain
 var body = yield parse.text(this);
