@@ -228,4 +228,47 @@ describe('parse(req, opts)', function(){
     })
   })
 
+  describe('multiple parser coexist', function(){
+    var app = koa();
+
+    app.use(function *(next){
+      this.request.bodyParser = parse(this);
+      yield next;
+    });
+    app.use(function *(next){
+      this.body = yield parse(this);
+      yield next;
+    });
+    app.use(function *(next){
+      this.body = [this.body, yield this.request.bodyParser];
+      yield next;
+    });
+
+    it('should parse json', function(done){
+      request(app.listen())
+      .post('/')
+      .set('content-type', 'application/json')
+      .send({foo:'bar'})
+      .expect(200)
+      .expect([{foo:'bar'}, {foo:'bar'}], done);
+    })
+
+    it('should parse text', function(done){
+      request(app.listen())
+      .post('/')
+      .set('content-type', 'text/plain')
+      .send('plain text')
+      .expect(200)
+      .expect(['plain text', 'plain text'], done);
+    })
+
+    it('should parse form', function(done){
+      request(app.listen())
+      .post('/')
+      .type('form')
+      .send({foo: 'bar'})
+      .expect(200)
+      .expect([{foo: 'bar'}, {foo: 'bar'}], done);
+    })
+  })
 })
