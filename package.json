@@ -14,23 +14,26 @@
   ],
   "dependencies": {
     "inflation": "^2.0.0",
-    "qs": "^6.4.0",
-    "raw-body": "^2.2.0",
-    "type-is": "^1.6.14"
+    "qs": "^6.5.2",
+    "raw-body": "^2.3.3",
+    "type-is": "^1.6.16"
   },
   "devDependencies": {
+    "autod": "^3.0.1",
+    "egg-bin": "^4.7.0",
     "eslint": "^4.19.1",
     "eslint-config-egg": "^7.0.0",
     "istanbul": "^0.4.5",
-    "koa": "^1.2.5",
+    "koa": "^1.6.0",
     "mocha": "^3.2.0",
     "safe-qs": "^6.0.1",
     "should": "^11.2.0",
-    "supertest": "^1.0.1"
+    "supertest": "^3.1.0"
   },
   "license": "MIT",
   "scripts": {
     "lint": "eslint .",
+    "autod": "autod",
     "test": "make test",
     "test-cov": "make test-cov"
   },

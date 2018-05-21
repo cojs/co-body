@@ -15,7 +15,7 @@ describe('parse.json(req, opts)', function() {
         done();
       });
 
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .send({ foo: 'bar' })
         .end(function() {});
@@ -32,7 +32,7 @@ describe('parse.json(req, opts)', function() {
         this.status = 200;
       });
 
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .type('json')
         .set('content-encoding', 'invalid')
@@ -51,7 +51,7 @@ describe('parse.json(req, opts)', function() {
           body.should.equal('');
           done();
         });
-        request(app.listen())
+        request(app.callback())
           .post('/')
           .set('content-length', 0)
           .end(function() {});
@@ -67,7 +67,7 @@ describe('parse.json(req, opts)', function() {
           body.should.eql({});
           done();
         });
-        request(app.listen())
+        request(app.callback())
           .post('/')
           .set('content-length', 0)
           .end(function() {});
@@ -89,7 +89,7 @@ describe('parse.json(req, opts)', function() {
         }
       });
 
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .set('content-type', 'application/json')
         .send('{"foo": "bar')
@@ -108,7 +108,7 @@ describe('parse.json(req, opts)', function() {
           done();
         });
 
-        request(app.listen())
+        request(app.callback())
           .post('/')
           .set('content-type', 'application/json')
           .send('"foo"')
@@ -131,7 +131,7 @@ describe('parse.json(req, opts)', function() {
           }
         });
 
-        request(app.listen())
+        request(app.callback())
           .post('/')
           .set('content-type', 'application/json')
           .send('"foo"')
@@ -148,7 +148,7 @@ describe('parse.json(req, opts)', function() {
         this.body = yield parse.json(this, { returnRawBody: true });
       });
 
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .type('json')
         .send({ foo: 'bar' })

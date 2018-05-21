@@ -14,7 +14,7 @@ describe('parse.text(req, opts)', function() {
         this.body = yield parse.text(this);
       });
 
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .send('Hello World!')
         .expect(200)
@@ -31,7 +31,7 @@ describe('parse.text(req, opts)', function() {
         this.status = 200;
       });
 
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .set('content-encoding', 'invalid')
         .send('Hello World!')
@@ -47,7 +47,7 @@ describe('parse.text(req, opts)', function() {
         this.body = yield parse.text(this, { returnRawBody: true });
       });
 
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .send('Hello World!')
         .expect({ parsed: 'Hello World!', raw: 'Hello World!' })
@@ -64,7 +64,7 @@ describe('parse.text(req, opts)', function() {
         this.body = { isBuffer: Buffer.isBuffer(requestBody) };
       });
 
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .send('Hello World!')
         .expect({ isBuffer: true })

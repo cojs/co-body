@@ -15,7 +15,7 @@ describe('parse.form(req, opts)', function() {
         this.status = 200;
       });
 
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .type('form')
         .send({ foo: { bar: 'baz' } })
@@ -33,7 +33,7 @@ describe('parse.form(req, opts)', function() {
         this.status = 200;
       });
 
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .type('form')
         .set('content-encoding', 'invalid')
@@ -54,7 +54,7 @@ describe('parse.form(req, opts)', function() {
         this.status = 200;
       });
 
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .type('form')
         .send({ level1: { level2: { level3: { level4: { level5: { level6: { level7: 'Hello' } } } } } } })
@@ -71,7 +71,7 @@ describe('parse.form(req, opts)', function() {
         this.status = 200;
       });
 
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .type('form')
         .send(data)
@@ -95,7 +95,7 @@ describe('parse.form(req, opts)', function() {
         }
       });
 
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .type('form')
         .send({ a: { 21: 'a' } })
@@ -112,7 +112,7 @@ describe('parse.form(req, opts)', function() {
         this.body = yield parse.form(this);
       });
 
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .type('form')
         .send('a.b=1&a.c=2')
@@ -127,7 +127,7 @@ describe('parse.form(req, opts)', function() {
         this.body = yield parse.form(this, { queryString: { allowDots: false } });
       });
 
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .type('form')
         .send('a.b=1&a.c=2')
@@ -144,7 +144,7 @@ describe('parse.form(req, opts)', function() {
         this.body = yield parse.form(this, { returnRawBody: true });
       });
 
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .type('form')
         .send('a[b]=1&a[c]=2')

@@ -16,7 +16,7 @@ describe('parse(req, opts)', function() {
         done();
       });
 
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .type('form')
         .send({ foo: { bar: 'baz' } })
@@ -34,7 +34,7 @@ describe('parse(req, opts)', function() {
         done();
       });
 
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .send({ foo: 'bar' })
         .end(function() {});
@@ -49,7 +49,7 @@ describe('parse(req, opts)', function() {
         this.body = yield parse(this);
       });
 
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .set('content-type', 'text/plain')
         .send('plain text')
@@ -66,7 +66,7 @@ describe('parse(req, opts)', function() {
     });
 
     it('should parse application/json-patch+json', function(done) {
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .type('application/json-patch+json')
         .send(JSON.stringify([{ op: 'replace', path: '/foo', value: 'bar' }]))
@@ -75,7 +75,7 @@ describe('parse(req, opts)', function() {
     });
 
     it('should parse application/vnd.api+json', function(done) {
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .type('application/vnd.api+json')
         .send(JSON.stringify({ posts: '1' }))
@@ -84,7 +84,7 @@ describe('parse(req, opts)', function() {
     });
 
     it('should parse application/csp-report', function(done) {
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .type('application/csp-report')
         .send(JSON.stringify({ posts: '1' }))
@@ -93,7 +93,7 @@ describe('parse(req, opts)', function() {
     });
 
     it('should parse application/ld+json', function(done) {
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .type('application/ld+json')
         .send(JSON.stringify({ posts: '1' }))
@@ -111,7 +111,7 @@ describe('parse(req, opts)', function() {
         this.body = body;
       });
 
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .set('Content-Type', 'text/html')
         .send('<h1>html text</ht>')
@@ -128,7 +128,7 @@ describe('parse(req, opts)', function() {
 
       const graphql = '{\n  user(id: 4) {\n    name\n  }\n}';
 
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .set('Content-Type', 'application/graphql')
         .send(graphql)
@@ -144,7 +144,7 @@ describe('parse(req, opts)', function() {
         yield parse(this);
       });
 
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .expect(415, 'Unsupported Media Type', done);
     });
@@ -161,7 +161,7 @@ describe('parse(req, opts)', function() {
         done();
       });
 
-      const req = request(app.listen())
+      const req = request(app.callback())
         .post('/')
         .type('json')
         .set('Content-Encoding', 'gzip');
@@ -178,7 +178,7 @@ describe('parse(req, opts)', function() {
         done();
       });
 
-      const req = request(app.listen())
+      const req = request(app.callback())
         .post('/')
         .type('json')
         .set('Content-Encoding', 'deflate');
@@ -194,7 +194,7 @@ describe('parse(req, opts)', function() {
       });
 
       before(function(done) {
-        request(app.listen())
+        request(app.callback())
           .post('/')
           .set('Content-Encoding', 'identity')
           .send({ foo: 'bar', and: 'something extra' })
@@ -203,7 +203,7 @@ describe('parse(req, opts)', function() {
 
       it('should inflate deflate', function(done) {
         const json = JSON.stringify({ foo: 'bar' });
-        const req = request(app.listen())
+        const req = request(app.callback())
           .post('/')
           .type('json')
           .set('Content-Encoding', 'deflate');
@@ -221,7 +221,7 @@ describe('parse(req, opts)', function() {
         done();
       });
 
-      request(app.listen())
+      request(app.callback())
         .post('/')
         .set('Content-Encoding', 'identity')
         .send({ foo: 'bar' })
