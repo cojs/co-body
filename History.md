@@ -1,4 +1,10 @@
 
+6.0.0 / 2018-05-21
+==================
+
+**features**
+  * [[`ad6b34d`](http://github.com/cojs/co-body/commit/ad6b34d72886001215a7ed71861b63dbddbbf40b)] - feat: use async function (#65) (Haoliang Gao <<sakura9515@gmail.com>>)
+
 5.2.0 / 2018-05-02
 ==================
 
