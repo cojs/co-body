@@ -1,4 +1,3 @@
-
 # co-body
 
 [![NPM version][npm-image]][npm-url]
@@ -42,22 +41,22 @@ more options available via [raw-body](https://github.com/stream-utils/raw-body#g
 
 ```js
 // application/json
-var body = yield parse.json(req);
+var body = await parse.json(req);
 
 // explicit limit
-var body = yield parse.json(req, { limit: '10kb' });
+var body = await parse.json(req, { limit: '10kb' });
 
 // application/x-www-form-urlencoded
-var body = yield parse.form(req);
+var body = await parse.form(req);
 
 // text/plain
-var body = yield parse.text(req);
+var body = await parse.text(req);
 
 // either
-var body = yield parse(req);
+var body = await parse(req);
 
 // custom type
-var body = yield parse(req, { textTypes: ['text', 'html'] });
+var body = await parse(req, { textTypes: ['text', 'html'] });
 ```
 
 ## Koa
@@ -67,16 +66,16 @@ var body = yield parse(req, { textTypes: ['text', 'html'] });
 
 ```js
 // application/json
-var body = yield parse.json(this);
+var body = await parse.json(this);
 
 // application/x-www-form-urlencoded
-var body = yield parse.form(this);
+var body = await parse.form(this);
 
 // text/plain
-var body = yield parse.text(this);
+var body = await parse.text(this);
 
 // either
-var body = yield parse(this);
+var body = await parse(this);
 ```
 
 # License

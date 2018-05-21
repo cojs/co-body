@@ -1,0 +1,7 @@
+{
+  "extends": "eslint-config-egg",
+  "rules": {
+    "no-bitwise": "off",
+    "no-control-regex": "off"
+  }
+}

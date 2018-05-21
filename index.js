@@ -1,3 +1,4 @@
+'use strict';
 
 exports = module.exports = require('./lib/any');
 exports.json = require('./lib/json');
