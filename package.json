@@ -23,9 +23,7 @@
     "egg-bin": "^4.7.0",
     "eslint": "^4.19.1",
     "eslint-config-egg": "^7.0.0",
-    "istanbul": "^0.4.5",
     "koa": "^1.6.0",
-    "mocha": "^3.2.0",
     "safe-qs": "^6.0.1",
     "should": "^11.2.0",
     "supertest": "^3.1.0"
@@ -34,8 +32,8 @@
   "scripts": {
     "lint": "eslint .",
     "autod": "autod",
-    "test": "make test",
-    "test-cov": "make test-cov"
+    "test": "egg-bin test -r should",
+    "cov": "eslint . && egg-bin cov -r should"
   },
   "files": [
     "index.js",
