@@ -8,10 +8,10 @@ const zlib = require('zlib');
 describe('parse(req, opts)', function() {
   describe('with valid form body', function() {
     it('should parse', function(done) {
-      const app = koa();
+      const app = new koa();
 
-      app.use(function* () {
-        const body = yield parse(this);
+      app.use(async function (ctx) {
+        const body = await parse(ctx);
         body.foo.bar.should.equal('baz');
         done();
       });
@@ -26,10 +26,10 @@ describe('parse(req, opts)', function() {
 
   describe('with valid json', function() {
     it('should parse', function(done) {
-      const app = koa();
+      const app = new koa();
 
-      app.use(function* () {
-        const body = yield parse(this);
+      app.use(async function (ctx) {
+        const body = await parse(ctx);
         body.should.eql({ foo: 'bar' });
         done();
       });
@@ -43,10 +43,10 @@ describe('parse(req, opts)', function() {
 
   describe('with valid text', function() {
     it('should parse', function(done) {
-      const app = koa();
+      const app = new koa();
 
-      app.use(function* () {
-        this.body = yield parse(this);
+      app.use(async function (ctx) {
+        ctx.body = await parse(ctx);
       });
 
       request(app.callback())
@@ -59,10 +59,10 @@ describe('parse(req, opts)', function() {
   });
 
   describe('with know json content-type', function() {
-    const app = koa();
+    const app = new koa();
 
-    app.use(function* () {
-      this.body = yield parse(this);
+    app.use(async function (ctx) {
+      ctx.body = await parse(ctx);
     });
 
     it('should parse application/json-patch+json', function(done) {
@@ -104,11 +104,11 @@ describe('parse(req, opts)', function() {
 
   describe('with custom types', function() {
     it('should parse html as text', function(done) {
-      const app = koa();
+      const app = new koa();
 
-      app.use(function* () {
-        const body = yield parse(this, { textTypes: 'text/html' });
-        this.body = body;
+      app.use(async function (ctx) {
+        const body = await parse(ctx, { textTypes: 'text/html' });
+        ctx.body = body;
       });
 
       request(app.callback())
@@ -119,11 +119,11 @@ describe('parse(req, opts)', function() {
     });
 
     it('should parse graphql as text', function(done) {
-      const app = koa();
+      const app = new koa();
 
-      app.use(function* () {
-        const body = yield parse(this, { textTypes: [ 'application/graphql', 'text/html' ] });
-        this.body = body;
+      app.use(async function (ctx) {
+        const body = await parse(ctx, { textTypes: [ 'application/graphql', 'text/html' ] });
+        ctx.body = body;
       });
 
       const graphql = '{\n  user(id: 4) {\n    name\n  }\n}';
@@ -138,10 +138,10 @@ describe('parse(req, opts)', function() {
 
   describe('with missing content-type', function() {
     it('should fail with 415', function(done) {
-      const app = koa();
+      const app = new koa();
 
-      app.use(function* () {
-        yield parse(this);
+      app.use(async function (ctx) {
+        await parse(ctx);
       });
 
       request(app.callback())
@@ -152,11 +152,11 @@ describe('parse(req, opts)', function() {
 
   describe('with content-encoding', function() {
     it('should inflate gzip', function(done) {
-      const app = koa();
+      const app = new koa();
       const json = JSON.stringify({ foo: 'bar' });
 
-      app.use(function* () {
-        const body = yield parse(this);
+      app.use(async function (ctx) {
+        const body = await parse(ctx);
         body.should.eql({ foo: 'bar' });
         done();
       });
@@ -169,11 +169,11 @@ describe('parse(req, opts)', function() {
       req.end(function() {});
     });
     it('should inflate deflate', function(done) {
-      const app = koa();
+      const app = new koa();
       const json = JSON.stringify({ foo: 'bar' });
 
-      app.use(function* () {
-        const body = yield parse(this);
+      app.use(async function (ctx) {
+        const body = await parse(ctx);
         body.should.eql({ foo: 'bar' });
         done();
       });
@@ -187,10 +187,10 @@ describe('parse(req, opts)', function() {
     });
 
     describe('after indentity and with shared options', function() {
-      const app = koa();
+      const app = new koa();
       const options = {};
-      app.use(function* () {
-        this.body = yield parse(this, options);
+      app.use(async function (ctx) {
+        ctx.body = await parse(ctx, options);
       });
 
       before(function(done) {
@@ -213,10 +213,10 @@ describe('parse(req, opts)', function() {
     });
 
     it('should pass-through identity', function(done) {
-      const app = koa();
+      const app = new koa();
 
-      app.use(function* () {
-        const body = yield parse(this);
+      app.use(async function (ctx) {
+        const body = await parse(ctx);
         body.should.eql({ foo: 'bar' });
         done();
       });

@@ -7,12 +7,12 @@ const koa = require('koa');
 describe('parse.form(req, opts)', function() {
   describe('with valid form body', function() {
     it('should parse', function(done) {
-      const app = koa();
+      const app = new koa();
 
-      app.use(function* () {
-        const body = yield parse.form(this);
+      app.use(async function (ctx) {
+        const body = await parse.form(ctx);
         body.foo.bar.should.equal('baz');
-        this.status = 200;
+        ctx.status = 200;
       });
 
       request(app.callback())
@@ -25,12 +25,12 @@ describe('parse.form(req, opts)', function() {
 
   describe('with invalid content encoding', function() {
     it('should throw 415', function(done) {
-      const app = koa();
+      const app = new koa();
 
-      app.use(function* () {
-        const body = yield parse.form(this);
+      app.use(async function (ctx) {
+        const body = await parse.form(ctx);
         body.foo.bar.should.equal('baz');
-        this.status = 200;
+        ctx.status = 200;
       });
 
       request(app.callback())
@@ -46,12 +46,12 @@ describe('parse.form(req, opts)', function() {
     const data = { level1: { level2: { level3: { level4: { level5: { level6: { level7: 'Hello' } } } } } } };
 
     it('should not parse full depth', function(done) {
-      const app = koa();
+      const app = new koa();
 
-      app.use(function* () {
-        const body = yield parse.form(this); // default to depth = 5
+      app.use(async function (ctx) {
+        const body = await parse.form(ctx); // default to depth = 5
         body.level1.level2.level3.level4.level5.level6['[level7]'].should.equal('Hello');
-        this.status = 200;
+        ctx.status = 200;
       });
 
       request(app.callback())
@@ -63,12 +63,12 @@ describe('parse.form(req, opts)', function() {
     });
 
     it('should parse', function(done) {
-      const app = koa();
+      const app = new koa();
 
-      app.use(function* () {
-        const body = yield parse.form(this, { queryString: { depth: 10 } });
+      app.use(async function (ctx) {
+        const body = await parse.form(ctx, { queryString: { depth: 10 } });
         body.level1.level2.level3.level4.level5.level6.level7.should.equal('Hello');
-        this.status = 200;
+        ctx.status = 200;
       });
 
       request(app.callback())
@@ -81,17 +81,17 @@ describe('parse.form(req, opts)', function() {
 
   describe('with custom qs module', function() {
     it('should parse with safe-qs', function(done) {
-      const app = koa();
+      const app = new koa();
 
-      app.use(function* () {
+      app.use(async function (ctx) {
         try {
-          yield parse.form(this, {
+          await parse.form(ctx, {
             qs: require('safe-qs'),
           });
           throw new Error('should not run this');
         } catch (err) {
-          this.status = err.status;
-          this.body = err.message;
+          ctx.status = err.status;
+          ctx.body = err.message;
         }
       });
 
@@ -106,10 +106,10 @@ describe('parse.form(req, opts)', function() {
 
   describe('allowDots', function() {
     it('should allowDots default to true', function(done) {
-      const app = koa();
+      const app = new koa();
 
-      app.use(function* () {
-        this.body = yield parse.form(this);
+      app.use(async function (ctx) {
+        ctx.body = await parse.form(ctx);
       });
 
       request(app.callback())
@@ -121,10 +121,10 @@ describe('parse.form(req, opts)', function() {
     });
 
     it('allowDots can set to false', function(done) {
-      const app = koa();
+      const app = new koa();
 
-      app.use(function* () {
-        this.body = yield parse.form(this, { queryString: { allowDots: false } });
+      app.use(async function (ctx) {
+        ctx.body = await parse.form(ctx, { queryString: { allowDots: false } });
       });
 
       request(app.callback())
@@ -138,10 +138,10 @@ describe('parse.form(req, opts)', function() {
 
   describe('returnRawBody', function() {
     it('should return raw body when opts.returnRawBody = true', function(done) {
-      const app = koa();
+      const app = new koa();
 
-      app.use(function* () {
-        this.body = yield parse.form(this, { returnRawBody: true });
+      app.use(async function (ctx) {
+        ctx.body = await parse.form(ctx, { returnRawBody: true });
       });
 
       request(app.callback())

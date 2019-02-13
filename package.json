@@ -14,19 +14,19 @@
   ],
   "dependencies": {
     "inflation": "^2.0.0",
-    "qs": "^6.5.2",
+    "qs": "^6.6.0",
     "raw-body": "^2.3.3",
     "type-is": "^1.6.16"
   },
   "devDependencies": {
     "autod": "^3.0.1",
-    "egg-bin": "^4.7.0",
-    "eslint": "^4.19.1",
-    "eslint-config-egg": "^7.0.0",
-    "koa": "^1.6.0",
+    "egg-bin": "^4.10.0",
+    "eslint": "^5.13.0",
+    "eslint-config-egg": "^7.1.0",
+    "koa": "^2.7.0",
     "safe-qs": "^6.0.1",
-    "should": "^11.2.0",
-    "supertest": "^3.1.0"
+    "should": "^13.2.3",
+    "supertest": "^3.4.2"
   },
   "license": "MIT",
   "scripts": {

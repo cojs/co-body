@@ -8,10 +8,10 @@ const Buffer = require('buffer').Buffer;
 describe('parse.text(req, opts)', function() {
   describe('with valid str', function() {
     it('should parse', function(done) {
-      const app = koa();
+      const app = new koa();
 
-      app.use(function* () {
-        this.body = yield parse.text(this);
+      app.use(async function (ctx) {
+        ctx.body = await parse.text(ctx);
       });
 
       request(app.callback())
@@ -24,11 +24,11 @@ describe('parse.text(req, opts)', function() {
 
   describe('with invalid content encoding', function() {
     it('should throw 415', function(done) {
-      const app = koa();
+      const app = new koa();
 
-      app.use(function* () {
-        yield parse.text(this);
-        this.status = 200;
+      app.use(async function (ctx) {
+        await parse.text(ctx);
+        ctx.status = 200;
       });
 
       request(app.callback())
@@ -41,10 +41,10 @@ describe('parse.text(req, opts)', function() {
 
   describe('returnRawBody', function() {
     it('should return raw body when opts.returnRawBody = true', function(done) {
-      const app = koa();
+      const app = new koa();
 
-      app.use(function* () {
-        this.body = yield parse.text(this, { returnRawBody: true });
+      app.use(async function (ctx) {
+        ctx.body = await parse.text(ctx, { returnRawBody: true });
       });
 
       request(app.callback())
@@ -57,11 +57,11 @@ describe('parse.text(req, opts)', function() {
 
   describe('use no encoding', function() {
     it('should return raw body when opts.returnRawBody = true', function(done) {
-      const app = koa();
+      const app = new koa();
 
-      app.use(function* () {
-        const requestBody = yield parse.text(this, { encoding: false });
-        this.body = { isBuffer: Buffer.isBuffer(requestBody) };
+      app.use(async function (ctx) {
+        const requestBody = await parse.text(ctx, { encoding: false });
+        ctx.body = { isBuffer: Buffer.isBuffer(requestBody) };
       });
 
       request(app.callback())
