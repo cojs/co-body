@@ -13,6 +13,7 @@
     "urlencoded"
   ],
   "dependencies": {
+    "bourne": "^1.1.2",
     "inflation": "^2.0.0",
     "qs": "^6.6.0",
     "raw-body": "^2.3.3",

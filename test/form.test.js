@@ -152,4 +152,26 @@ describe('parse.form(req, opts)', function() {
         .expect(200, done);
     });
   });
+
+  describe('JSON poisoning', function() {
+    it('remove inline __proto__ properties', function(done) {
+      const app = new koa();
+
+      app.use(async function (ctx) {
+        ctx.body = await parse.form(ctx, { returnRawBody: true });
+      });
+
+      const body = 'foo=bar&__proto__[admin]=true'
+
+      request(app.callback())
+        .post('/')
+        .type('form')
+        .send(body)
+        .expect(function (res) {
+          res.body = { isAdmin: res.body.parsed.__proto__.admin }
+        })
+        .expect({ isAdmin: undefined })
+        .expect(200, done);
+    });
+  });
 });
