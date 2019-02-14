@@ -10,7 +10,7 @@ describe('parse.text(req, opts)', function() {
     it('should parse', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         ctx.body = await parse.text(ctx);
       });
 
@@ -26,7 +26,7 @@ describe('parse.text(req, opts)', function() {
     it('should throw 415', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         await parse.text(ctx);
         ctx.status = 200;
       });
@@ -43,7 +43,7 @@ describe('parse.text(req, opts)', function() {
     it('should return raw body when opts.returnRawBody = true', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         ctx.body = await parse.text(ctx, { returnRawBody: true });
       });
 
@@ -59,7 +59,7 @@ describe('parse.text(req, opts)', function() {
     it('should return raw body when opts.returnRawBody = true', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         const requestBody = await parse.text(ctx, { encoding: false });
         ctx.body = { isBuffer: Buffer.isBuffer(requestBody) };
       });

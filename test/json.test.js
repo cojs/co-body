@@ -9,7 +9,7 @@ describe('parse.json(req, opts)', function() {
     it('should parse', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         const body = await parse.json(ctx);
         body.should.eql({ foo: 'bar' });
         done();
@@ -26,7 +26,7 @@ describe('parse.json(req, opts)', function() {
     it('should throw 415', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         const body = await parse.json(ctx);
         body.foo.bar.should.equal('baz');
         ctx.status = 200;
@@ -46,7 +46,7 @@ describe('parse.json(req, opts)', function() {
       it('should return null', function(done) {
         const app = new koa();
 
-        app.use(async function (ctx) {
+        app.use(async function(ctx) {
           const body = await parse.json(ctx, { strict: false });
           body.should.equal('');
           done();
@@ -62,7 +62,7 @@ describe('parse.json(req, opts)', function() {
       it('should return null', function(done) {
         const app = new koa();
 
-        app.use(async function (ctx) {
+        app.use(async function(ctx) {
           const body = await parse.json(ctx);
           body.should.eql({});
           done();
@@ -79,7 +79,7 @@ describe('parse.json(req, opts)', function() {
     it('should parse error', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         try {
           await parse.json(ctx);
         } catch (err) {
@@ -102,7 +102,7 @@ describe('parse.json(req, opts)', function() {
       it('should parse', function(done) {
         const app = new koa();
 
-        app.use(async function (ctx) {
+        app.use(async function(ctx) {
           const body = await parse.json(ctx, { strict: false });
           body.should.equal('foo');
           done();
@@ -120,7 +120,7 @@ describe('parse.json(req, opts)', function() {
       it('should parse', function(done) {
         const app = new koa();
 
-        app.use(async function (ctx) {
+        app.use(async function(ctx) {
           try {
             await parse.json(ctx, { strict: true });
           } catch (err) {
@@ -144,7 +144,7 @@ describe('parse.json(req, opts)', function() {
     it('should return raw body when opts.returnRawBody = true', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         ctx.body = await parse.json(ctx, { returnRawBody: true });
       });
 
@@ -161,18 +161,19 @@ describe('parse.json(req, opts)', function() {
     it('remove inline __proto__ properties', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         ctx.body = await parse.json(ctx, { returnRawBody: true });
       });
 
-      const body = '{"foo": "bar", "__proto__": { "admin": true }}'
+      const body = '{"foo": "bar", "__proto__": { "admin": true }}';
 
       request(app.callback())
         .post('/')
         .type('json')
         .send(body)
-        .expect(function (res) {
-          res.body = { isAdmin: res.body.parsed.__proto__.admin }
+        .expect(function(res) {
+          /* eslint no-proto: "off" */
+          res.body = { isAdmin: res.body.parsed.__proto__.admin };
         })
         .expect({ isAdmin: undefined })
         .expect(200, done);
@@ -181,18 +182,19 @@ describe('parse.json(req, opts)', function() {
     it('remove nested inline __proto__ properties', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         ctx.body = await parse.json(ctx, { returnRawBody: true });
       });
 
-      const body = '{"user": { "name": "virk", "__proto__": { "admin": true } }}'
+      const body = '{"user": { "name": "virk", "__proto__": { "admin": true } }}';
 
       request(app.callback())
         .post('/')
         .type('json')
         .send(body)
-        .expect(function (res) {
-          res.body = { isAdmin: res.body.parsed.user.__proto__.admin }
+        .expect(function(res) {
+          /* eslint no-proto: "off" */
+          res.body = { isAdmin: res.body.parsed.user.__proto__.admin };
         })
         .expect({ isAdmin: undefined })
         .expect(200, done);
@@ -201,7 +203,7 @@ describe('parse.json(req, opts)', function() {
     it('error on inline __proto__ properties', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         try {
           await parse.json(ctx, { returnRawBody: true, protoAction: 'error' });
         } catch (err) {
@@ -212,7 +214,7 @@ describe('parse.json(req, opts)', function() {
         }
       });
 
-      const body = '{"foo": "bar", "__proto__": { "admin": true }}'
+      const body = '{"foo": "bar", "__proto__": { "admin": true }}';
 
       request(app.callback())
         .post('/')
@@ -225,18 +227,19 @@ describe('parse.json(req, opts)', function() {
   it('ignore inline __proto__ properties', function(done) {
     const app = new koa();
 
-    app.use(async function (ctx) {
+    app.use(async function(ctx) {
       ctx.body = await parse.json(ctx, { returnRawBody: true, protoAction: 'ignore' });
     });
 
-    const body = '{ "name": "virk", "__proto__": { "admin": true } }'
+    const body = '{ "name": "virk", "__proto__": { "admin": true } }';
 
     request(app.callback())
       .post('/')
       .type('json')
       .send(body)
-      .expect(function (res) {
-        res.body = { isAdmin: res.body.parsed.__proto__.admin }
+      .expect(function(res) {
+        /* eslint no-proto: "off" */
+        res.body = { isAdmin: res.body.parsed.__proto__.admin };
       })
       .expect({ isAdmin: true })
       .expect(200, done);

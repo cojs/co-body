@@ -10,7 +10,7 @@ describe('parse(req, opts)', function() {
     it('should parse', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         const body = await parse(ctx);
         body.foo.bar.should.equal('baz');
         done();
@@ -28,7 +28,7 @@ describe('parse(req, opts)', function() {
     it('should parse', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         const body = await parse(ctx);
         body.should.eql({ foo: 'bar' });
         done();
@@ -45,7 +45,7 @@ describe('parse(req, opts)', function() {
     it('should parse', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         ctx.body = await parse(ctx);
       });
 
@@ -61,7 +61,7 @@ describe('parse(req, opts)', function() {
   describe('with know json content-type', function() {
     const app = new koa();
 
-    app.use(async function (ctx) {
+    app.use(async function(ctx) {
       ctx.body = await parse(ctx);
     });
 
@@ -106,7 +106,7 @@ describe('parse(req, opts)', function() {
     it('should parse html as text', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         const body = await parse(ctx, { textTypes: 'text/html' });
         ctx.body = body;
       });
@@ -121,7 +121,7 @@ describe('parse(req, opts)', function() {
     it('should parse graphql as text', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         const body = await parse(ctx, { textTypes: [ 'application/graphql', 'text/html' ] });
         ctx.body = body;
       });
@@ -140,7 +140,7 @@ describe('parse(req, opts)', function() {
     it('should fail with 415', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         await parse(ctx);
       });
 
@@ -155,7 +155,7 @@ describe('parse(req, opts)', function() {
       const app = new koa();
       const json = JSON.stringify({ foo: 'bar' });
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         const body = await parse(ctx);
         body.should.eql({ foo: 'bar' });
         done();
@@ -172,7 +172,7 @@ describe('parse(req, opts)', function() {
       const app = new koa();
       const json = JSON.stringify({ foo: 'bar' });
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         const body = await parse(ctx);
         body.should.eql({ foo: 'bar' });
         done();
@@ -189,7 +189,7 @@ describe('parse(req, opts)', function() {
     describe('after indentity and with shared options', function() {
       const app = new koa();
       const options = {};
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         ctx.body = await parse(ctx, options);
       });
 
@@ -215,7 +215,7 @@ describe('parse(req, opts)', function() {
     it('should pass-through identity', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         const body = await parse(ctx);
         body.should.eql({ foo: 'bar' });
         done();

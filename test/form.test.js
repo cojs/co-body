@@ -9,7 +9,7 @@ describe('parse.form(req, opts)', function() {
     it('should parse', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         const body = await parse.form(ctx);
         body.foo.bar.should.equal('baz');
         ctx.status = 200;
@@ -27,7 +27,7 @@ describe('parse.form(req, opts)', function() {
     it('should throw 415', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         const body = await parse.form(ctx);
         body.foo.bar.should.equal('baz');
         ctx.status = 200;
@@ -48,7 +48,7 @@ describe('parse.form(req, opts)', function() {
     it('should not parse full depth', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         const body = await parse.form(ctx); // default to depth = 5
         body.level1.level2.level3.level4.level5.level6['[level7]'].should.equal('Hello');
         ctx.status = 200;
@@ -65,7 +65,7 @@ describe('parse.form(req, opts)', function() {
     it('should parse', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         const body = await parse.form(ctx, { queryString: { depth: 10 } });
         body.level1.level2.level3.level4.level5.level6.level7.should.equal('Hello');
         ctx.status = 200;
@@ -83,7 +83,7 @@ describe('parse.form(req, opts)', function() {
     it('should parse with safe-qs', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         try {
           await parse.form(ctx, {
             qs: require('safe-qs'),
@@ -108,7 +108,7 @@ describe('parse.form(req, opts)', function() {
     it('should allowDots default to true', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         ctx.body = await parse.form(ctx);
       });
 
@@ -123,7 +123,7 @@ describe('parse.form(req, opts)', function() {
     it('allowDots can set to false', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         ctx.body = await parse.form(ctx, { queryString: { allowDots: false } });
       });
 
@@ -140,7 +140,7 @@ describe('parse.form(req, opts)', function() {
     it('should return raw body when opts.returnRawBody = true', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         ctx.body = await parse.form(ctx, { returnRawBody: true });
       });
 
@@ -157,18 +157,19 @@ describe('parse.form(req, opts)', function() {
     it('remove inline __proto__ properties', function(done) {
       const app = new koa();
 
-      app.use(async function (ctx) {
+      app.use(async function(ctx) {
         ctx.body = await parse.form(ctx, { returnRawBody: true });
       });
 
-      const body = 'foo=bar&__proto__[admin]=true'
+      const body = 'foo=bar&__proto__[admin]=true';
 
       request(app.callback())
         .post('/')
         .type('form')
         .send(body)
-        .expect(function (res) {
-          res.body = { isAdmin: res.body.parsed.__proto__.admin }
+        .expect(function(res) {
+          /* eslint no-proto: "off" */
+          res.body = { isAdmin: res.body.parsed.__proto__.admin };
         })
         .expect({ isAdmin: undefined })
         .expect(200, done);
