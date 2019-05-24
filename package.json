@@ -15,19 +15,19 @@
   "dependencies": {
     "bourne": "^1.1.2",
     "inflation": "^2.0.0",
-    "qs": "^6.6.0",
-    "raw-body": "^2.3.3",
-    "type-is": "^1.6.16"
+    "qs": "^6.7.0",
+    "raw-body": "^2.4.0",
+    "type-is": "^1.6.18"
   },
   "devDependencies": {
-    "autod": "^3.0.1",
-    "egg-bin": "^4.10.0",
-    "eslint": "^5.13.0",
-    "eslint-config-egg": "^7.1.0",
+    "autod": "^3.1.0",
+    "egg-bin": "^4.13.0",
+    "eslint": "^5.16.0",
+    "eslint-config-egg": "^7.4.1",
     "koa": "^2.7.0",
     "safe-qs": "^6.0.1",
     "should": "^13.2.3",
-    "supertest": "^3.4.2"
+    "supertest": "^4.0.2"
   },
   "license": "MIT",
   "scripts": {
