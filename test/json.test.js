@@ -76,7 +76,7 @@ describe('parse.json(req, opts)', function() {
   });
 
   describe('with invalid json', function() {
-    it('should parse error', function(done) {
+    it('should return empty object', function(done) {
       const app = new koa();
 
       app.use(async function(ctx) {
@@ -199,49 +199,5 @@ describe('parse.json(req, opts)', function() {
         .expect({ isAdmin: undefined })
         .expect(200, done);
     });
-
-    it('error on inline __proto__ properties', function(done) {
-      const app = new koa();
-
-      app.use(async function(ctx) {
-        try {
-          await parse.json(ctx, { returnRawBody: true, protoAction: 'error' });
-        } catch (err) {
-          err.status.should.equal(400);
-          err.body.should.equal('{"foo": "bar", "__proto__": { "admin": true }}');
-          err.message.should.equal('Object contains forbidden prototype property');
-          done();
-        }
-      });
-
-      const body = '{"foo": "bar", "__proto__": { "admin": true }}';
-
-      request(app.callback())
-        .post('/')
-        .type('json')
-        .send(body)
-        .end(function() {});
-    });
-  });
-
-  it('ignore inline __proto__ properties', function(done) {
-    const app = new koa();
-
-    app.use(async function(ctx) {
-      ctx.body = await parse.json(ctx, { returnRawBody: true, protoAction: 'ignore' });
-    });
-
-    const body = '{ "name": "virk", "__proto__": { "admin": true } }';
-
-    request(app.callback())
-      .post('/')
-      .type('json')
-      .send(body)
-      .expect(function(res) {
-        /* eslint no-proto: "off" */
-        res.body = { isAdmin: res.body.parsed.__proto__.admin };
-      })
-      .expect({ isAdmin: true })
-      .expect(200, done);
   });
 });
