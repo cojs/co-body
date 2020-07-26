@@ -13,18 +13,18 @@
     "urlencoded"
   ],
   "dependencies": {
-    "@hapi/bourne": "^1.3.2",
+    "@hapi/bourne": "^2.0.0",
     "inflation": "^2.0.0",
-    "qs": "^6.8.0",
+    "qs": "^6.9.4",
     "raw-body": "^2.4.1",
     "type-is": "^1.6.18"
   },
   "devDependencies": {
     "autod": "^3.1.0",
-    "egg-bin": "^4.13.0",
-    "eslint": "^6.1.0",
-    "eslint-config-egg": "^7.4.1",
-    "koa": "^2.7.0",
+    "egg-bin": "^4.15.0",
+    "eslint": "^7.5.0",
+    "eslint-config-egg": "^8.0.1",
+    "koa": "^2.13.0",
     "safe-qs": "^6.0.1",
     "should": "^13.2.3",
     "supertest": "^4.0.2"
