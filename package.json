@@ -1,8 +1,8 @@
 {
-  "name": "co-body",
-  "version": "6.0.0",
-  "repository": "cojs/co-body",
-  "description": "request body parsing for co",
+  "name": "@poppinss/co-body",
+  "version": "1.0.0",
+  "repository": "thetutlage/co-body",
+  "description": "Request body parser used by AdonisJS. Forked from co-body",
   "keywords": [
     "request",
     "parse",
