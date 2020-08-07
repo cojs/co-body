@@ -157,11 +157,12 @@ describe('parse.form(req, opts)', function() {
       const app = koa();
 
       app.use(function* () {
+        const transformBodyFunc = function(str) {
+          const qs = require('qs');
+          return qs.parse(str, { allowDots: true });
+        };
         this.body = yield parse.form(this, {
-          transformBody: function(str) {
-            const qs = require('qs');
-            return qs.parse(str, { allowDots: true });
-          }
+          transformBody: transformBodyFunc,
         });
       });
 

@@ -76,10 +76,11 @@ describe('parse.text(req, opts)', function() {
       const app = koa();
 
       app.use(function* () {
-        const requestBody = yield parse.text(this, { 
-          transformBody: function(str) {
-            return str + ' World!';
-          }
+        const transfomBodyFunc = function(str) {
+          return str + ' World!';
+        };
+        const requestBody = yield parse.text(this, {
+          transformBody: transfomBodyFunc,
         });
         this.body = requestBody;
       });
@@ -87,7 +88,7 @@ describe('parse.text(req, opts)', function() {
       request(app.callback())
         .post('/')
         .send('Hello')
-        .expect("Hello World!")
+        .expect('Hello World!')
         .expect(200, done);
     });
   });
