@@ -71,4 +71,24 @@ describe('parse.text(req, opts)', function() {
         .expect(200, done);
     });
   });
+  describe('transformBody', function() {
+    it('should return transform request body result when opts.transformBody is a function', function(done) {
+      const app = koa();
+
+      app.use(function* () {
+        const requestBody = yield parse.text(this, { 
+          transformBody: function(str) {
+            return str + ' World!';
+          }
+        });
+        this.body = requestBody;
+      });
+
+      request(app.callback())
+        .post('/')
+        .send('Hello')
+        .expect("Hello World!")
+        .expect(200, done);
+    });
+  });
 });

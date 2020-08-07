@@ -152,4 +152,25 @@ describe('parse.form(req, opts)', function() {
         .expect(200, done);
     });
   });
+  describe('transformBody', function() {
+    it('should return transform request body result when opts.transformBody is a function', function(done) {
+      const app = koa();
+
+      app.use(function* () {
+        this.body = yield parse.form(this, {
+          transformBody: function(str) {
+            const qs = require('qs');
+            return qs.parse(str, { allowDots: true });
+          }
+        });
+      });
+
+      request(app.callback())
+        .post('/')
+        .type('form')
+        .send('a.b=1&a.c=2')
+        .expect({ a: { b: '1', c: '2' } })
+        .expect(200, done);
+    });
+  });
 });
