@@ -83,6 +83,7 @@ describe('parse.json(req, opts)', function() {
         try {
           yield parse.json(this);
         } catch (err) {
+          err.should.be.an.instanceOf(SyntaxError);
           err.status.should.equal(400);
           err.body.should.equal('{"foo": "bar');
           done();
@@ -124,6 +125,7 @@ describe('parse.json(req, opts)', function() {
           try {
             yield parse.json(this, { strict: true });
           } catch (err) {
+            err.should.be.an.instanceOf(SyntaxError);
             err.status.should.equal(400);
             err.body.should.equal('"foo"');
             err.message.should.equal('invalid JSON, only supports object and array');
