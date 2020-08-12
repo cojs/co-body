@@ -1,4 +1,14 @@
 
+6.1.0 / 2020-08-12
+==================
+
+**features**
+  * [[`960986e`](http://github.com/cojs/co-body/commit/960986ef7518ae7ed05f4a2deab44395ffeaa796)] - feat: throw one type error for json parse strict = true (#74) (Dmitriy Fedotov <<fedotov1248@gmail.com>>)
+
+**others**
+  * [[`a847bfd`](http://github.com/cojs/co-body/commit/a847bfd6e9648138669791c5106439aa080c03ec)] - update: lib/json.js use const define len (#72) (YuLe <<joyful4yu@gmail.com>>)
+  * [[`db6041c`](http://github.com/cojs/co-body/commit/db6041c27ce9a6b280aa49c88d82e3ee0da6a844)] - chore: add codecov (#66) (Haoliang Gao <<sakura9515@gmail.com>>)
+
 6.0.0 / 2018-05-21
 ==================
 
