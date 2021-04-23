@@ -19,6 +19,7 @@ describe('parse.form(req, opts)', function() {
         .post('/')
         .type('form')
         .send({ foo: { bar: 'baz' } })
+        .expect(200)
         .end(function(err) { done(err); });
     });
   });
@@ -58,6 +59,7 @@ describe('parse.form(req, opts)', function() {
         .post('/')
         .type('form')
         .send({ level1: { level2: { level3: { level4: { level5: { level6: { level7: 'Hello' } } } } } } })
+        .expect(200)
         .end(function(err) { done(err); });
 
     });
@@ -75,6 +77,7 @@ describe('parse.form(req, opts)', function() {
         .post('/')
         .type('form')
         .send(data)
+        .expect(200)
         .end(function(err) { done(err); });
     });
   });
@@ -173,6 +176,46 @@ describe('parse.form(req, opts)', function() {
         })
         .expect({ isAdmin: undefined })
         .expect(200, done);
+    });
+  });
+
+  describe('empty string to null', function() {
+    it('convert empty string to null', function(done) {
+      const app = new koa();
+
+      app.use(async function(ctx) {
+        const body = await parse.form(ctx, { queryString: { convertEmptyStringToNull: true } });
+        body.foo.should.eql({ bar: null });
+        ctx.status = 200;
+      });
+
+      request(app.callback())
+        .post('/')
+        .type('form')
+        .send({ foo: { bar: '' } })
+        .expect(200)
+        .end(function(err) {
+          done(err);
+        });
+    });
+
+    it('do not convert empty string to null when not enabled', function(done) {
+      const app = new koa();
+
+      app.use(async function(ctx) {
+        const body = await parse.form(ctx, { queryString: { convertEmptyStringToNull: false } });
+        body.foo.should.eql({ bar: '' });
+        ctx.status = 200;
+      });
+
+      request(app.callback())
+        .post('/')
+        .type('form')
+        .send({ foo: { bar: '' } })
+        .expect(200)
+        .end(function(err) {
+          done(err);
+        });
     });
   });
 });

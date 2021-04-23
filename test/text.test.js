@@ -3,7 +3,6 @@
 const request = require('supertest');
 const parse = require('..');
 const koa = require('koa');
-const Buffer = require('buffer').Buffer;
 
 describe('parse.text(req, opts)', function() {
   describe('with valid str', function() {
