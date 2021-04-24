@@ -217,5 +217,24 @@ describe('parse.form(req, opts)', function() {
           done(err);
         });
     });
+
+    it('do not convert empty key to null', function(done) {
+      const app = new koa();
+
+      app.use(async function(ctx) {
+        const body = await parse.form(ctx, { convertEmptyStringsToNull: true });
+        body.foo.should.eql({ 0: 'foo', a: 'b' });
+        ctx.status = 200;
+      });
+
+      request(app.callback())
+        .post('/')
+        .type('form')
+        .send({ foo: { '': 'foo', a: 'b' } })
+        .expect(200)
+        .end(function(err) {
+          done(err);
+        });
+    });
   });
 });
