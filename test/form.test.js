@@ -184,7 +184,7 @@ describe('parse.form(req, opts)', function() {
       const app = new koa();
 
       app.use(async function(ctx) {
-        const body = await parse.form(ctx, { queryString: { convertEmptyStringToNull: true } });
+        const body = await parse.form(ctx, { convertEmptyStringsToNull: true });
         body.foo.should.eql({ bar: null });
         ctx.status = 200;
       });
@@ -203,7 +203,7 @@ describe('parse.form(req, opts)', function() {
       const app = new koa();
 
       app.use(async function(ctx) {
-        const body = await parse.form(ctx, { queryString: { convertEmptyStringToNull: false } });
+        const body = await parse.form(ctx, { convertEmptyStringsToNull: false });
         body.foo.should.eql({ bar: '' });
         ctx.status = 200;
       });
