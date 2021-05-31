@@ -2,23 +2,16 @@
 
 [![NPM version][npm-image]][npm-url]
 [![build status][gh-workflow-image]][gh-workflow-url]
-[![David deps][david-image]][david-url]
 [![npm download][download-image]][download-url]
 
-[npm-image]: https://img.shields.io/npm/v/co-body.svg?style=flat-square
+[npm-image]: https://img.shields.io/npm/v/co-body.svg?style=for-the-badge
 [npm-url]: https://npmjs.org/package/co-body
 
 [gh-workflow-image]: https://img.shields.io/github/workflow/status/thetutlage/co-body/test?style=for-the-badge
 [gh-workflow-url]: https://github.com/thetutlage/co-body/actions/workflows/test.yml "Github action"
 
-[coveralls-image]: https://img.shields.io/coveralls/cojs/co-body.svg?style=flat-square
-[coveralls-url]: https://coveralls.io/r/cojs/co-body?branch=master
-
-[david-image]: https://img.shields.io/david/cojs/co-body.svg?style=flat-square
-[david-url]: https://david-dm.org/cojs/co-body
-
-[download-image]: https://img.shields.io/npm/dm/co-body.svg?style=flat-square
-[download-url]: https://npmjs.org/package/co-body
+[download-image]: https://img.shields.io/npm/dm/@poppinss/co-body.svg?style=for-the-badge
+[download-url]: https://npmjs.org/package/@poppinss/co-body
 
   Parse request bodies with generators inspired by [Raynos/body](https://github.com/Raynos/body).
 
