@@ -13,7 +13,7 @@
     "urlencoded"
   ],
   "dependencies": {
-    "@poppinss/utils": "^3.1.0",
+    "@poppinss/utils": "^3.1.3",
     "inflation": "^2.0.0",
     "qs": "^6.10.1",
     "raw-body": "^2.4.1",
@@ -21,8 +21,8 @@
   },
   "devDependencies": {
     "autod": "^3.1.1",
-    "egg-bin": "^4.16.0",
-    "eslint": "^7.24.0",
+    "egg-bin": "^4.16.2",
+    "eslint": "^7.27.0",
     "eslint-config-egg": "^9.0.0",
     "koa": "^2.13.1",
     "safe-qs": "^6.0.1",
