@@ -14,12 +14,12 @@
   ],
   "dependencies": {
     "inflation": "^2.0.0",
-    "qs": "^6.5.2",
-    "raw-body": "^2.3.3",
-    "type-is": "^1.6.16"
+    "qs": "^6.11.0",
+    "raw-body": "^2.5.1",
+    "type-is": "^1.6.18"
   },
   "devDependencies": {
-    "autod": "^3.0.1",
+    "autod": "^3.1.2",
     "egg-bin": "^4.7.0",
     "eslint": "^4.19.1",
     "eslint-config-egg": "^7.0.0",
