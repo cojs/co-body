@@ -1,23 +1,18 @@
 # co-body
 
 [![NPM version][npm-image]][npm-url]
-[![build status][travis-image]][travis-url]
-[![Test coverage][coveralls-image]][coveralls-url]
-[![David deps][david-image]][david-url]
+[![CI](https://github.com/cojs/co-body/actions/workflows/node.yml/badge.svg)](https://github.com/cojs/co-body/actions/workflows/node.yml)
+[![Test coverage][codecov-image]][codecov-url]
 [![npm download][download-image]][download-url]
 
 [npm-image]: https://img.shields.io/npm/v/co-body.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/co-body
-[travis-image]: https://img.shields.io/travis/cojs/co-body.svg?style=flat-square
-[travis-url]: https://travis-ci.org/cojs/co-body
-[coveralls-image]: https://img.shields.io/coveralls/cojs/co-body.svg?style=flat-square
-[coveralls-url]: https://coveralls.io/r/cojs/co-body?branch=master
-[david-image]: https://img.shields.io/david/cojs/co-body.svg?style=flat-square
-[david-url]: https://david-dm.org/cojs/co-body
+[codecov-image]: https://codecov.io/github/cojs/co-body/coverage.svg?branch=master
+[codecov-url]: https://codecov.io/github/cojs/co-body?branch=master
 [download-image]: https://img.shields.io/npm/dm/co-body.svg?style=flat-square
 [download-url]: https://npmjs.org/package/co-body
 
-  Parse request bodies with generators inspired by [Raynos/body](https://github.com/Raynos/body).
+> Parse request bodies with generators inspired by [Raynos/body](https://github.com/Raynos/body).
 
 ## Installation
 
@@ -80,4 +75,4 @@ var body = await parse(this);
 
 # License
 
-  MIT
+[MIT](LICENSE.txt)
