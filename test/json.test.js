@@ -158,4 +158,58 @@ describe('parse.json(req, opts)', function() {
         .expect(200, done);
     });
   });
+
+  describe('with valid onProtoPoisoning', function() {
+    it('should parse with onProtoPoisoning = "error" by default', function(done) {
+      const app = koa();
+
+      app.use(function* () {
+        try {
+          yield parse.json(this);
+        } catch (err) {
+          err.should.be.an.instanceOf(SyntaxError);
+          err.message.should.equal('Object contains forbidden prototype property');
+          err.status.should.equal(400);
+          err.body.should.equal('{ "__proto__": { "boom": "💣" } }');
+          done();
+        }
+      });
+
+      request(app.callback())
+        .post('/')
+        .set('content-type', 'application/json')
+        .send('{ "__proto__": { "boom": "💣" } }')
+        .end(function() {});
+    });
+
+    it('should parse with onProtoPoisoning = "ignore"', function(done) {
+      const app = koa();
+
+      app.use(function* () {
+        this.body = yield parse.json(this, { onProtoPoisoning: 'ignore' });
+      });
+
+      request(app.callback())
+        .post('/')
+        .set('content-type', 'application/json')
+        .send('{ "__proto__": { "boom": "💣" }, "hello": "world" }')
+        .expect({ ['__proto__']: { boom: '💣' }, hello: 'world' })
+        .expect(200, done);
+    });
+
+    it('should parse with onProtoPoisoning = "remove"', function(done) {
+      const app = koa();
+
+      app.use(function* () {
+        this.body = yield parse.json(this, { onProtoPoisoning: 'remove' });
+      });
+
+      request(app.callback())
+        .post('/')
+        .set('content-type', 'application/json')
+        .send('{ "__proto__": { "boom": "💣" }, "hello": "world" }')
+        .expect({ hello: 'world' })
+        .expect(200, done);
+    });
+  });
 });
