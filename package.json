@@ -19,7 +19,6 @@
     "type-is": "^1.6.16"
   },
   "devDependencies": {
-    "autod": "^3.0.1",
     "egg-bin": "^4.7.0",
     "eslint": "^4.19.1",
     "eslint-config-egg": "^7.0.0",
@@ -31,12 +30,14 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint .",
-    "autod": "autod",
     "test": "egg-bin test -r should",
     "cov": "eslint . && egg-bin cov -r should"
   },
   "files": [
     "index.js",
     "lib/"
-  ]
+  ],
+  "engines": {
+    "node": ">=8.0.0"
+  }
 }
