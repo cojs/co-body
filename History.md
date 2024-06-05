@@ -1,4 +1,14 @@
 
+6.2.0 / 2024-06-05
+==================
+
+**features**
+  * [[`2bc63a5`](http://github.com/cojs/co-body/commit/2bc63a50bdb44b237f94b4d676492fcfc6c8d592)] - feat: Protect against prototype poisoning (#87) (fengmk2 <<suqian.yf@antgroup.com>>)
+
+**others**
+  * [[`9cce60c`](http://github.com/cojs/co-body/commit/9cce60c33d0356465c0dc7b2c3544cb21c38c549)] - test: run test on github action (#86) (fengmk2 <<suqian.yf@antgroup.com>>)
+  * [[`bc50a97`](http://github.com/cojs/co-body/commit/bc50a97567c2562ac18e66d7524c363830d382bb)] - chore: add MIT license file (#79) (Peng Deng <<dengpeng@gmail.com>>)
+
 6.1.0 / 2020-08-12
 ==================
 

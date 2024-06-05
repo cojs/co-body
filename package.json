@@ -1,6 +1,6 @@
 {
   "name": "co-body",
-  "version": "6.1.0",
+  "version": "6.2.0",
   "repository": "cojs/co-body",
   "description": "request body parsing for co",
   "keywords": [
