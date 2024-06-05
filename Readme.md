@@ -1,10 +1,14 @@
 # co-body
 
 [![NPM version][npm-image]][npm-url]
+[![CI](https://github.com/cojs/co-body/actions/workflows/node.yml/badge.svg)](https://github.com/cojs/co-body/actions/workflows/node.yml)
+[![Test coverage][codecov-image]][codecov-url]
 [![npm download][download-image]][download-url]
 
 [npm-image]: https://img.shields.io/npm/v/co-body.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/co-body
+[codecov-image]: https://codecov.io/github/cojs/co-body/coverage.svg?branch=master
+[codecov-url]: https://codecov.io/github/cojs/co-body?branch=master
 [download-image]: https://img.shields.io/npm/dm/co-body.svg?style=flat-square
 [download-url]: https://npmjs.org/package/co-body
 

@@ -31,7 +31,8 @@
   "scripts": {
     "lint": "eslint .",
     "test": "egg-bin test -r should",
-    "cov": "eslint . && egg-bin cov -r should"
+    "cov": "eslint . && egg-bin cov -r should",
+    "ci": "npm run lint && npm run cov"
   },
   "files": [
     "index.js",
